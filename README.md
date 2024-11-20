@@ -83,3 +83,20 @@ Para ejecutar las pruebas abra otra terminar con el entorno virtual activado, y 
 deepeval test run test_deepeval.py
 ```
 
+# Construcción y ejecución de contenedor de docker
+
+### 1. Construir la imagen de Docker
+Puedes construir la imagen de Docker ejecutando el siguiente comando en el directorio donde se encuentra el Dockerfile:
+
+```bash
+docker build -t news-chatbot .
+```
+
+2. Ejecutar el contenedor
+Una vez que la imagen se haya construido, puedes ejecutar el contenedor de la siguiente manera:
+
+```bash
+docker run -p 8501:8501 news-chatbot
+```
+
+Esto hará que tu aplicación Streamlit esté disponible en http://localhost:8501.
