@@ -11,6 +11,7 @@ Este proyecto es un sistema inteligente de noticias que utiliza diversas tecnolo
 * Responder preguntas usando un modelo de lenguaje (GPT-4) con el contexto proporcionado por las noticias.
 * Evaluar la calidad de las respuestas usando DeepEval.
 * Narrar las respuestas en audio utilizando la tecnología gTTS.
+* Realizar la comparación entre dos noticias al ingresar la consulta "Realiza una comparación entre las últimas noticias" o "Realiza la comparación entre las primeras dos noticias relacionadas con (noticia a consultar)", para ello es necesario que las noticias se encuentren en el historial de consultas.
 
 ## Funcionalidades
 1. Scraping de Noticias
