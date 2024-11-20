@@ -1,8 +1,19 @@
+import os
+from dotenv import load_dotenv
 from deepeval.metrics import AnswerRelevancyMetric
 from deepeval.test_case import LLMTestCase
 from deepeval.metrics import ContextualPrecisionMetric
 from deepeval.metrics import ContextualRecallMetric
 
+
+load_dotenv()
+
+# Load environment variables
+openai_api_key = os.getenv("OPENAI_API_KEY")
+
+# Check if environment variables are set
+if not openai_api_key:
+    raise ValueError("OpenAI environment variables not set. Please set them in the .env file")
 
 test_case1 = LLMTestCase(
     input="Dime qué sucedió con Gemini?",
