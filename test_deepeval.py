@@ -63,7 +63,7 @@ contextual_precision_metric = ContextualPrecisionMetric(threshold=0.5)
 contextual_recall_metric = ContextualRecallMetric()
 
 
-# Evaluación
+# Evaluation
 print("TEST CASE 1 RELEVANT ANSWER")
 answer_relevancy_metric.measure(test_case1)
 print(answer_relevancy_metric.score)
@@ -84,7 +84,7 @@ print(contextual_recall_metric.reason)
 print("")
 print("")
 
-# Evaluación
+# Evaluation
 print("TEST CASE 2 RELEVANT ANSWER")
 answer_relevancy_metric.measure(test_case3)
 print(answer_relevancy_metric.score)
@@ -105,7 +105,7 @@ print(contextual_recall_metric.reason)
 print("")
 print("")
 
-# Evaluación
+# Evaluation
 print("TEST CASE 3 RELEVANT ANSWER")
 answer_relevancy_metric.measure(test_case5)
 print(answer_relevancy_metric.score)

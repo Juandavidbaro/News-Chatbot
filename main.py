@@ -96,7 +96,7 @@ def convert_to_chat_message_history(session_history) -> BaseChatMessageHistory:
             chat_history.add_ai_message(message["content"])
     return chat_history
 
-# Función para narrar el texto
+# Function to narrate the text
 def narrate_text(text):
     tts = gTTS(text, lang='es')
     with tempfile.NamedTemporaryFile(delete=False, suffix='.mp3') as temp_audio:
@@ -110,13 +110,13 @@ def main():
         st.session_state.waiting_for_answer = False
 
     if "session_id" not in st.session_state:
-        st.session_state.session_id = str(uuid.uuid4())  # Asigna un ID único
+        st.session_state.session_id = str(uuid.uuid4())  # Assigns a unique ID
 
     st.set_page_config(page_title="Sistema Inteligente de Noticias")
     st.title("Samanta - Asistente de Noticias")
     st.sidebar.header("Opciones")
 
-    # Opción 1: Agregar noticia mediante scraping
+    # Option 1: Add news by scraping
     st.sidebar.subheader("Agregar Noticia")
     news_url = st.sidebar.text_input("Ingresa el enlace de la noticia:")
     if st.sidebar.button("Agregar Noticia", key="add_news_button"):
@@ -132,38 +132,38 @@ def main():
             except Exception as e:
                 st.sidebar.error(f"Error al agregar la noticia: {e}")
 
-    # Chat con Samanta
+    # Chat with Samanta
     if "chat_history" not in st.session_state:
         st.session_state.chat_history = []
 
-    # Mostrar el historial del chat
+    # Show chat history
     for i, message in enumerate(st.session_state.chat_history):
         with st.chat_message(message["type"]):
             st.markdown(message["content"])
 
-            # Si el mensaje es de tipo "AI", mostrar el botón de reproducir
+            # If the message is of type “AI”, display the play button.
             if message["type"] == "ai":
                 if st.button(f"Reproducir Respuesta", key=f"play_button_{i}"):
-                    audio_path = narrate_text(message["content"])  # Generar la narración
-                    st.audio(audio_path)  # Reproducir el audio
+                    audio_path = narrate_text(message["content"])  # Generate the narrative
+                    st.audio(audio_path)  # Play audio
 
 
-    # Entrada de usuario
+    # User input
     user_input = st.text_input("Escribe tu mensaje aquí...", key="chat_input")
     if st.button("Procesar pregunta", disabled=st.session_state.waiting_for_answer):
 
 
         if user_input and not st.session_state.waiting_for_answer:
-            # Agregar la pregunta al historial de chat
+            # Add the question to the chat history
             st.session_state.chat_history.append({"type": "human", "content": user_input})
-            st.session_state.waiting_for_answer = True  # Marcar que estamos esperando la respuesta
+            st.session_state.waiting_for_answer = True  # Mark that we are waiting for the answer
             try:
-                # Preparar el historial de chat y el contexto
+                # Preparing the chat history and context
                 chat_history = convert_to_chat_message_history(st.session_state.chat_history)
                 news_data = st.session_state.get("news_data", "")
                 combined_context = f"{news_data}\n\n{user_input}"
 
-                # Crear la cadena de recuperación
+                # Create the recovery chain
                 conversational_rag_chain = RunnableWithMessageHistory(
                     rag_chain,
                     lambda _: chat_history,
@@ -172,7 +172,7 @@ def main():
                     output_messages_key="answer",
                 )
 
-                # Invocar la cadena de recuperación
+                # Invoke the recovery chain
                 response = conversational_rag_chain.invoke(
                     {"input": combined_context},
                     {"configurable": {"session_id": st.session_state.session_id}}
