@@ -11,6 +11,7 @@ Este proyecto es un sistema inteligente de noticias que utiliza diversas tecnolo
 * Responder preguntas usando un modelo de lenguaje (GPT-4) con el contexto proporcionado por las noticias.
 * Evaluar la calidad de las respuestas usando DeepEval.
 * Narrar las respuestas en audio utilizando la tecnología gTTS.
+* Realizar la comparación entre dos noticias al ingresar la consulta "Realiza una comparación entre las últimas noticias" o "Realiza la comparación entre las primeras dos noticias relacionadas con (noticia a consultar)", para ello es necesario que las noticias se encuentren en el historial de consultas.
 
 ## Funcionalidades
 1. Scraping de Noticias
@@ -82,3 +83,20 @@ Para ejecutar las pruebas abra otra terminar con el entorno virtual activado, y 
 deepeval test run test_deepeval.py
 ```
 
+# Construcción y ejecución de contenedor de docker
+
+### 1. Construir la imagen de Docker
+Puedes construir la imagen de Docker ejecutando el siguiente comando en el directorio donde se encuentra el Dockerfile:
+
+```bash
+docker build -t news-chatbot .
+```
+
+2. Ejecutar el contenedor
+Una vez que la imagen se haya construido, puedes ejecutar el contenedor de la siguiente manera:
+
+```bash
+docker run -p 8501:8501 news-chatbot
+```
+
+Esto hará que tu aplicación Streamlit esté disponible en http://localhost:8501.
